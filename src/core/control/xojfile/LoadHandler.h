@@ -187,7 +187,9 @@ private:
     bool isGzFile;
 
     std::vector<PageRef> pages;
-    std::unordered_map<fs::path, fs::path> audioFiles;
+  //std::unordered_map<fs::path, fs::path> audioFiles;
+    std::unordered_map<std::string, std::filesystem::path> audioFiles;
+
 
     PageRef page;
     std::unique_ptr<Layer> layer;

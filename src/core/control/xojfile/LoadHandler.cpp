@@ -712,7 +712,22 @@ void LoadHandler::setAudioAttributes(AudioElement& elem, fs::path filename, size
 }
 
 auto LoadHandler::getTempFileForPath(fs::path const& filename) -> fs::path {
-    auto it = this->audioFiles.find(filename);
+    std::string key = filename.string();
+    auto it = this->audioFiles.find(key);
+
+    if (it == this->audioFiles.end()) {
+        logError(FS(_F("Requested temporary file was not found for attachment {1}")
+                     % filename.u8string()));
+        return {};
+    }
+
+    return it->second;
+}
+
+    //auto it = this->audioFiles.find(filename);
+/*    std::string key = filename.string();
+    this->audioFiles[key] = tmpPath;
+    auto it = this->audioFiles.find(key);
 
     if (it == this->audioFiles.end()) {
         logError(FS(_F("Requested temporary file was not found for attachment {1}") % filename.u8string()));
@@ -721,6 +736,7 @@ auto LoadHandler::getTempFileForPath(fs::path const& filename) -> fs::path {
         return it->second;
     }
 }
+*/
 
 auto LoadHandler::getAbsoluteFilepath(const fs::path& filename, bool attach) const -> fs::path {
     fs::path absolutePath;
