@@ -27,9 +27,9 @@ TEST_F (PoolTest, Creation)
   const char *nc = name.c_str ();
 
   EXPECT_FALSE (
-    Pool::Create (nc, "ceci n'est pas a type", true, Slaw ()).IsSplend ());
+    Pool::Create (nc, "not a type", true, Slaw ()).IsSplend ());
   EXPECT_FALSE (
-    Pool::Create (nc, "ceci n'est pas a type", false, Slaw ()).IsSplend ());
+    Pool::Create (nc, "not a type", false, Slaw ()).IsSplend ());
 }
 
 TEST_F (PoolTest, Participate)
