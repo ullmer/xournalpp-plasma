@@ -198,10 +198,11 @@ else ()
     message(STATUS "Disable Xournal++ Plugins")
 endif ()
 
-open(ENABLE_PLASMA "Compile with animist plasma support" ON)
+option(ENABLE_PLASMA "Compile with animist plasma support" ON)
 if (ENABLE_PLASMA)
   message(STATUS "Enable Plasma support")
-  #find_package(Plasma REQUIRED)
+  find_package(Plasma REQUIRED)
+  add_library(plasma INTERFACE)
   #target_link_libraries(plasma INTERFACE ${PLASMA_LIBRARIES})
   #target_include_directories(plasma INTERFACE ${PLASMA_INCLUDE_DIR})
   target_link_libraries(plasma INTERFACE      /home/bullmer/git/plasma/build/c++/libPlasma++.a)
@@ -277,6 +278,7 @@ add_library(external_modules INTERFACE)
 target_link_libraries(external_modules INTERFACE
         PkgConfig::ExternalModules
         $<$<TARGET_EXISTS:Lua::lua>:Lua::lua>
+        $<$<TARGET_EXISTS:Plasma::plasma>:Plasma::plasma>
         $<$<TARGET_EXISTS:PkgConfig::GtkSourceView>:PkgConfig::GtkSourceView>
         $<$<TARGET_EXISTS:PkgConfig::ExternalAudioModules>:PkgConfig::ExternalAudioModules>
         $<$<TARGET_EXISTS:X11::Xi>:X11::Xi>
